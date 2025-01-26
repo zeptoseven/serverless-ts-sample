@@ -1,7 +1,7 @@
 {
-  "name": "sinque-backend",
+  "name": "serverless-backend",
   "version": "1.0.0",
-  "description": "Sinque Backend - NodeJS",
+  "description": "Serverless Backend - NodeJS",
   "keywords": [],
   "author": "",
   "license": "ISC",
