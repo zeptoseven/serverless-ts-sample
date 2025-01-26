@@ -1,0 +1,40 @@
+# @ts-nocheck
+service: sinque-backend
+frameworkVersion: "3"
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+  deploymentMethod: direct
+
+functions:
+  user-register:
+    handler: src/handlers/register.handler
+    events:
+      - http:
+          path: /user/register
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+
+custom:
+  Sique:
+    name: Sinque-${opt:stage, 'dev'}
